@@ -1,0 +1,13 @@
+'''
+Created on Apr 15, 2012
+
+@author: sergii
+'''
+import json
+
+def generate_json(urls):
+    list_for_json=[]
+    for e in urls:
+        list_for_json.append({'url':e})
+    return json.dumps(list_for_json)
+

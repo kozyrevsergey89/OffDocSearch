@@ -1,0 +1,29 @@
+'''
+Server for web crawler instance
+@author: David Mayboroda
+'''
+from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
+
+class OffDocsHandler(BaseHTTPRequestHandler):
+    
+    def do_GET(self):
+        try:
+            self.send_response(200)
+            self.send_header('Content-type','text/html')
+            self.end_headers()
+            self.wfile.write("<HTML><P>HELLO</P></HTML>")
+         
+        except IOError:
+            self.send_error(404,'File Not Found: %s' % self.path)
+            
+def main():
+    try:    
+        server = HTTPServer(('192.168.1.235', 8080), OffDocsHandler)
+        print 'started http server...'
+        server.serve_forever()
+    except KeyboardInterrupt:
+        print 'shutting down server'
+        server.socket.close()
+
+if __name__ == '__main__':
+    main()
